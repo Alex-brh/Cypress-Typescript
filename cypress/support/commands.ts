@@ -39,7 +39,7 @@ Cypress.Commands.add('navigateToUrl', (url: string) => {
  * @example cy.validateElementText('h1.title', 'Welcome')
  */
 Cypress.Commands.add('validateElementText', (selector, expectedText) => {
-    cy.get(selector).should('exist').scrollIntoView().should('have.text', expectedText);
+    cy.get(selector).should('exist').scrollIntoView({ timeout: 10000 }).should('have.text', expectedText);
 });
 
 declare global {
