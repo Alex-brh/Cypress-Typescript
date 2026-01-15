@@ -27,4 +27,3 @@ jobs:
           name: cypress-results
           path: |
             cypress/screenshots
-            cypress/videos
