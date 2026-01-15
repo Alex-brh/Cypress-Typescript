@@ -23,6 +23,8 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+import type { Chainable } from "cypress";
+
 export { }; // Marks this file as a module
 
 /**
@@ -48,16 +50,22 @@ Cypress.Commands.add('validateElementText', ({selector, index, expectedText}: {s
 });
 
 /**
- * Validate top bar menu items and navigation to corresponding pages.
+ * Wait for the page to load.
+ * @example cy.waitForPageLoad()
  * 
  */
-
+Cypress.Commands.add('waitForPageToLoad', () => {
+    cy.document().should((doc) => {
+        expect(doc.readyState).to.be.oneOf(['interactive', 'complete']);
+    });
+});
 
 declare global {
     namespace Cypress {
         interface Chainable {
             navigateToUrl(url: string): Chainable<void>;
             validateElementText({selector, index, expectedText}: {selector: string, index: number, expectedText: string}): Chainable<void>;
+            waitForPageToLoad(): Chainable<void>;
         }
     }
 }
