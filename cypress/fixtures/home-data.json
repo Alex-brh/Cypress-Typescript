@@ -1,0 +1,17 @@
+{
+  "pageTitle": "DEMO tEST store",
+  "header1": [
+    {
+      "headerText": "Welcome to Alex's test automation site for practice"
+    },
+    {
+      "headerText": "Verify New Collection"
+    },
+    {
+      "headerText": "Discover Our Exclusive Collection"
+    },
+    {
+      "headerText": "More stuff"
+    }
+  ]
+}
