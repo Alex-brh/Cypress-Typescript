@@ -28,20 +28,11 @@ import { Chainable } from 'cypress';
 
 export { }; // Marks this file as a module
 
-/**
-* Navigate to a URL and verify it.
-* @example cy.navigateToUrl('/login')
-*/
 Cypress.Commands.add('navigateToUrl', (url: string) => {
     cy.visit(url);
     cy.url().should('include', url, { timeout: 10000 });
 });
 
-/**
- * Validate that an element contains the expected text (eleement index is optional and defaults to 0).
- * @example cy.validateElementText('h1.title', 'Welcome')
- * @example cy.validateElementText('h1.title', 0, 'Welcome')
- */
 Cypress.Commands.add('validateElementText', ({ selector, index = 0, expectedText }) => {
     if (index !== undefined) {
         cy.get(selector).eq(index).should('exist').scrollIntoView({ timeout: 10000 }).should('have.text', expectedText);
@@ -50,13 +41,7 @@ Cypress.Commands.add('validateElementText', ({ selector, index = 0, expectedText
     }
 });
 
-/**
- * Validate element attribute with OR without expected value.
- * @example cy.validateElementAttribute('a.link', 'href')
- * @example cy.validateElementAttribute('a.link', 0, 'href')
- * @example cy.validateElementAttribute('a.link', 0, 'href', '/home')
- */
-Cypress.Commands.add('validateElementAttribute', ({selector, index = 0, attribute, expectedValue}) => {
+Cypress.Commands.add('validateElementAttribute', ({ selector, index = 0, attribute, expectedValue }) => {
     // Start the command chain
     const element = cy.get(selector).eq(index).should('exist').scrollIntoView({ timeout: 10000 });
 
@@ -69,11 +54,6 @@ Cypress.Commands.add('validateElementAttribute', ({selector, index = 0, attribut
     }
 });
 
-/**
- * Wait for the page to load.
- * @example cy.waitForPageLoad()
- * 
- */
 Cypress.Commands.add('waitForPageToLoad', () => {
     cy.document().should((doc) => {
         expect(doc.readyState).to.be.oneOf(['interactive', 'complete']);
@@ -83,14 +63,42 @@ Cypress.Commands.add('waitForPageToLoad', () => {
 declare global {
     namespace Cypress {
         interface Chainable {
+            /**
+            * Navigate to a URL and verify it.
+            * @param url The URL to navigate to.
+            * @example cy.navigateToUrl('/login')
+            */
             navigateToUrl(url: string): Chainable<void>;
+           /**
+           * Validate that an element contains the expected text (eleement index is optional and defaults to 0).
+           * @param selector The CSS selector of the element.
+           * @param index (Optional) The index of the element if multiple elements match the selector.
+           * @param expectedText The expected text content of the element.
+           * @example cy.validateElementText('h1.title', 'Welcome')
+           * @example cy.validateElementText('h1.title', 0, 'Welcome')
+           */
             validateElementText(options: { selector: string, index?: number, expectedText: string }): Chainable<void>;
+           /**
+            * Validate element attribute with OR without expected value.
+            * @param selector The CSS selector of the element.
+            * @param index (Optional) The index of the element if multiple elements match the selector.
+            * @param attribute The attribute to validate.
+            * @param expectedValue (Optional) The expected value of the attribute.
+            * @example cy.validateElementAttribute('a.link', 'href')
+            * @example cy.validateElementAttribute('a.link', 0, 'href')
+            * @example cy.validateElementAttribute('a.link', 0, 'href', '/home')
+            */
             validateElementAttribute(options: {
                 selector: string;
                 index?: number; // Optional
                 attribute: string;
                 expectedValue?: string; // Optional
             }): Chainable<void>;
+            /**
+            * Wait for the page to load.
+            * @param none
+            * @example cy.waitForPageLoad()
+            */
             waitForPageToLoad(): Chainable<void>;
         }
     }

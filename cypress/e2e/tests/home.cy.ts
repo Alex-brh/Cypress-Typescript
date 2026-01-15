@@ -8,7 +8,7 @@ describe('Test "Home" page by validating', () => {
     const homeData = require('../../fixtures/home-data.json');
 
     beforeEach(() => {
-        cy.navigateToUrl('https://free-5288352.webadorsite.com/');
+        cy.navigateToUrl('/');
     });
 
     it('URL and title', () => {
