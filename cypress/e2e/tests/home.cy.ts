@@ -10,13 +10,13 @@ describe('Test "Home" page by', () => {
     });
 
     it('validating its URL and title', () => {
-        cy.validateElementText('h1[id="jw-header-title"] > span', 0, homeData.pageTitle);
+        cy.validateElementText({selector: 'h1[id="jw-header-title"] > span', index: 0, expectedText: homeData.pageTitle});
     })
 
-    it('validating header h1 contents', () => {
+    it('validating headers h1 contents', () => {
         cy.wrap(homeData.header1).each((item: any, i) => {
             cy.log(`Validating: ${item.headerText}`);
-            cy.validateElementText('h1[class^="jw-heading"]', i, item.headerText);
+            cy.validateElementText({selector: 'h1[class^="jw-heading"]', index: i, expectedText: item.headerText});
         });
     })
 

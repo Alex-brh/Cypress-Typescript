@@ -38,16 +38,15 @@ Cypress.Commands.add('navigateToUrl', (url: string) => {
  * Validate that an element contains the expected text.
  * @example cy.validateElementText('h1.title', 'Welcome')
  */
-Cypress.Commands.add('validateElementText', (selector, index, expectedText) => {
+Cypress.Commands.add('validateElementText', ({selector, index, expectedText}: {selector: string, index: number, expectedText: string}) => {
     cy.get(selector).eq(index).should('exist').scrollIntoView({ timeout: 10000 }).should('have.text', expectedText);
 });
 
 declare global {
     namespace Cypress {
         interface Chainable {
-
             navigateToUrl(url: string): Chainable<void>;
-            validateElementText(selector: string, index: number, expectedText: string): Chainable<void>;
+            validateElementText({selector, index, expectedText}: {selector: string, index: number, expectedText: string}): Chainable<void>;
         }
     }
 }
