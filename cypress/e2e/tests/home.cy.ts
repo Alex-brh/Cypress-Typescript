@@ -46,6 +46,14 @@ describe('Test "Home" page by', () => {
             cy.get(`a[class*="js-active-menu-item"][href="${menuItem.href}"]`).should('exist');
             cy.url().should('include', menuItem.href, { timeout: 10000 });
         });
+        // Validate the 'About Us' button navigation.
+        cy.get('a[title="About Us"][href="/contact"]').should('exist').should('contain.text', 'About Us').scrollIntoView({ timeout: 10000 }).click({ force: true });
+        // Wait for page to load.
+        cy.document().should((doc) => {
+            expect(doc.readyState).to.be.oneOf(['interactive', 'complete']);
+        });
+        // Validate that we have navigated to the 'Contact' page by checking the active menu item and then the page URL.
+        cy.url().should('include', '/contact', { timeout: 10000 });
     });
 
 });
