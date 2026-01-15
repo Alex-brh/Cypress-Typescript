@@ -1,7 +1,9 @@
 // One way to import data from fixture files.
 import * as data from '../../fixtures/home-data.json'
+import { HomePage } from '../POM/home-page';
+const homePage = new HomePage();
 
-describe('Test "Home" page by', () => {
+describe('Test "Home" page by validating', () => {
     // Another way to import data from fixture files.
     const homeData = require('../../fixtures/home-data.json');
 
@@ -9,11 +11,11 @@ describe('Test "Home" page by', () => {
         cy.navigateToUrl('https://free-5288352.webadorsite.com/');
     });
 
-    it('validating its URL and title', () => {
+    it('URL and title', () => {
         cy.validateElementText({ selector: 'h1[id="jw-header-title"] > span', expectedText: data.pageTitle });
     })
 
-    it('validating main headers contents', () => {
+    it('main headers contents', () => {
         cy.wrap(data.header1).each((item: any, i) => {
             cy.log(`Validating: ${item.headerText}`);
             cy.validateElementText({ selector: 'h1[class^="jw-heading"]', index: i, expectedText: item.headerText });
@@ -21,7 +23,7 @@ describe('Test "Home" page by', () => {
         cy.validateElementText({ selector: 'div[class="jw-slideshow-title"]', expectedText: "Discover Unique Ways To Create Test Scripts" });
     })
 
-    it('validating paragraph contents', () => {
+    it('paragraph contents', () => {
         cy.wrap(data.paragraphs).each((item: any, i) => {
             cy.log(`Validating: ${item.paragraphText}`);
             cy.validateElementText({ selector: 'div > p', index: i, expectedText: item.paragraphText });
@@ -29,7 +31,7 @@ describe('Test "Home" page by', () => {
         cy.validateElementText({ selector: 'h3', expectedText: `“Online Store offers an incredible variety of unique items that I can't find anywhere else!”` });
     });
 
-    it('validating top bar menu items and navigation to corresponding pages', () => {
+    it('top bar menu items and navigation to corresponding pages', () => {
         const topBarMenuItems = [
             { menuText: 'Home', href: '/' },
             { menuText: 'Store', href: "/store" },
@@ -57,7 +59,7 @@ describe('Test "Home" page by', () => {
         cy.url().should('include', '/contact', { timeout: 10000 });
     });
 
-    it('validating page images', () => {
+    it('page images', () => {
         let pictureCount: number;
         cy.get('img').its('length').then((length: number) => {
             pictureCount = length;
@@ -69,5 +71,10 @@ describe('Test "Home" page by', () => {
         });
 
     });
+
+    it('that the "Shop Now" buttons are present and functional', () => {
+        homePage.validateShopNowButtons({ buttonsCount: 2 });
+    });
+
 
 });

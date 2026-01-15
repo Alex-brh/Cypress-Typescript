@@ -24,6 +24,8 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+import { Chainable } from 'cypress';
+
 export { }; // Marks this file as a module
 
 /**
