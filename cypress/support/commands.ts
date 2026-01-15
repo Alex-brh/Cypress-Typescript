@@ -36,11 +36,22 @@ Cypress.Commands.add('navigateToUrl', (url: string) => {
 
 /**
  * Validate that an element contains the expected text.
+ * @example cy.validateElementText('h1.title', 0, 'Welcome')
  * @example cy.validateElementText('h1.title', 'Welcome')
  */
-Cypress.Commands.add('validateElementText', ({selector, index, expectedText}: {selector: string, index: number, expectedText: string}) => {
-    cy.get(selector).eq(index).should('exist').scrollIntoView({ timeout: 10000 }).should('have.text', expectedText);
+Cypress.Commands.add('validateElementText', ({selector, index, expectedText}: {selector: string, index?: number, expectedText: string}) => {
+    if (index !== undefined) {
+        cy.get(selector).eq(index).should('exist').scrollIntoView({ timeout: 10000 }).should('have.text', expectedText);
+    } else {
+        cy.get(selector).should('exist').scrollIntoView({ timeout: 10000 }).should('have.text', expectedText);
+    }
 });
+
+/**
+ * Validate top bar menu items and navigation to corresponding pages.
+ * 
+ */
+
 
 declare global {
     namespace Cypress {

@@ -10,14 +10,42 @@ describe('Test "Home" page by', () => {
     });
 
     it('validating its URL and title', () => {
-        cy.validateElementText({selector: 'h1[id="jw-header-title"] > span', index: 0, expectedText: homeData.pageTitle});
+        cy.validateElementText({ selector: 'h1[id="jw-header-title"] > span', index: 0, expectedText: data.pageTitle });
     })
 
     it('validating headers h1 contents', () => {
-        cy.wrap(homeData.header1).each((item: any, i) => {
+        cy.wrap(data.header1).each((item: any, i) => {
             cy.log(`Validating: ${item.headerText}`);
-            cy.validateElementText({selector: 'h1[class^="jw-heading"]', index: i, expectedText: item.headerText});
+            cy.validateElementText({ selector: 'h1[class^="jw-heading"]', index: i, expectedText: item.headerText });
         });
     })
+
+    it('validating top bar menu items and navigation to corresponding pages', () => {
+        const topBarMenuItems = [
+            { menuText: 'Home', href: '/' },
+            { menuText: 'Store', href: "/store" },
+            { menuText: 'FAQ', href: "/faq" },
+            { menuText: 'Customer Testimonials', href: "/customer-testimonials" },
+            { menuText: 'Contact', href: "/contact" },
+            { menuText: 'Elements with frames', href: "/elements-with-frames" },
+            { menuText: 'Showcase', href: "/showcase" },
+            { menuText: 'Clearance', href: "/clearance" }
+        ]
+        cy.wrap(topBarMenuItems).each((menuItem: any, i) => {
+            cy.log(`Validating menu item: ${menuItem.menuText}`);
+            cy.get(`a[class^="jw-menu-link"][href="${menuItem.href}"]`).should('exist').scrollIntoView({ timeout: 10000 }).within(() => {
+                cy.get('span').should('contain.text', menuItem.menuText);
+            });
+            // Click on the menu item to navigate to the corresponding page.
+            cy.get(`a[class^="jw-menu-link"][href="${menuItem.href}"]`).click({ force: true });
+            // Wait for page to load.
+            cy.document().should((doc) => {
+                expect(doc.readyState).to.be.oneOf(['interactive', 'complete']);
+            });
+            // Validate that we have navigated to the correct page by checking the active menu item and then the page URL.
+            cy.get(`a[class*="js-active-menu-item"][href="${menuItem.href}"]`).should('exist');
+            cy.url().should('include', menuItem.href, { timeout: 10000 });
+        });
+    });
 
 });
