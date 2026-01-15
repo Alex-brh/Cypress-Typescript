@@ -20,3 +20,5 @@ Cypress.on('uncaught:exception', (err, runnable) => {
   return false
 })
 import './commands'
+import '../e2e/POM/home-page';
+import "cypress-real-events/support";
