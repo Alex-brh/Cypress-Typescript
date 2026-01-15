@@ -13,39 +13,47 @@ describe('Test "Home" page by', () => {
         cy.validateElementText({ selector: 'h1[id="jw-header-title"] > span', index: 0, expectedText: data.pageTitle });
     })
 
-    it('validating headers h1 contents', () => {
+    it('validating main headers contents', () => {
         cy.wrap(data.header1).each((item: any, i) => {
             cy.log(`Validating: ${item.headerText}`);
             cy.validateElementText({ selector: 'h1[class^="jw-heading"]', index: i, expectedText: item.headerText });
         });
+        cy.validateElementText({ selector: 'div[class="jw-slideshow-title"]', index: 0, expectedText: "Discover Unique Ways To Create Test Scripts" });
     })
 
-    it('validating top bar menu items and navigation to corresponding pages', () => {
-        const topBarMenuItems = [
-            { menuText: 'Home', href: '/' },
-            { menuText: 'Store', href: "/store" },
-            { menuText: 'FAQ', href: "/faq" },
-            { menuText: 'Customer Testimonials', href: "/customer-testimonials" },
-            { menuText: 'Contact', href: "/contact" },
-            { menuText: 'Elements with frames', href: "/elements-with-frames" },
-            { menuText: 'Showcase', href: "/showcase" },
-            { menuText: 'Clearance', href: "/clearance" }
-        ]
-        cy.wrap(topBarMenuItems).each((menuItem: any, i) => {
-            cy.log(`Validating menu item: ${menuItem.menuText}`);
-            cy.get(`a[class^="jw-menu-link"][href="${menuItem.href}"]`).should('exist').scrollIntoView({ timeout: 10000 }).within(() => {
-                cy.get('span').should('contain.text', menuItem.menuText);
-            });
-            // Click on the menu item to navigate to the corresponding page.
-            cy.get(`a[class^="jw-menu-link"][href="${menuItem.href}"]`).click({ force: true });
-            cy.waitForPageToLoad();
-            cy.get(`a[class*="js-active-menu-item"][href="${menuItem.href}"]`).should('exist');
-            cy.url().should('include', menuItem.href, { timeout: 10000 });
+    it('validating paragraph contents', () => {
+        cy.wrap(data.paragraphs).each((item: any, i) => {
+            cy.log(`Validating: ${item.paragraphText}`);
+            cy.validateElementText({ selector: 'div > p', index: i, expectedText: item.paragraphText });
         });
-        // Validate the 'About Us' button navigation.
-        cy.get('a[title="About Us"][href="/contact"]').should('exist').should('contain.text', 'About Us').scrollIntoView({ timeout: 10000 }).click({ force: true });
-        cy.waitForPageToLoad();
-        cy.url().should('include', '/contact', { timeout: 10000 });
     });
 
-});
+        it('validating top bar menu items and navigation to corresponding pages', () => {
+            const topBarMenuItems = [
+                { menuText: 'Home', href: '/' },
+                { menuText: 'Store', href: "/store" },
+                { menuText: 'FAQ', href: "/faq" },
+                { menuText: 'Customer Testimonials', href: "/customer-testimonials" },
+                { menuText: 'Contact', href: "/contact" },
+                { menuText: 'Elements with frames', href: "/elements-with-frames" },
+                { menuText: 'Showcase', href: "/showcase" },
+                { menuText: 'Clearance', href: "/clearance" }
+            ]
+            cy.wrap(topBarMenuItems).each((menuItem: any, i) => {
+                cy.log(`Validating menu item: ${menuItem.menuText}`);
+                cy.get(`a[class^="jw-menu-link"][href="${menuItem.href}"]`).should('exist').scrollIntoView({ timeout: 10000 }).within(() => {
+                    cy.get('span').should('contain.text', menuItem.menuText);
+                });
+                // Click on the menu item to navigate to the corresponding page.
+                cy.get(`a[class^="jw-menu-link"][href="${menuItem.href}"]`).click({ force: true });
+                cy.waitForPageToLoad();
+                cy.get(`a[class*="js-active-menu-item"][href="${menuItem.href}"]`).should('exist');
+                cy.url().should('include', menuItem.href, { timeout: 10000 });
+            });
+            // Validate the 'About Us' button navigation.
+            cy.get('a[title="About Us"][href="/contact"]').should('exist').should('contain.text', 'About Us').scrollIntoView({ timeout: 10000 }).click({ force: true });
+            cy.waitForPageToLoad();
+            cy.url().should('include', '/contact', { timeout: 10000 });
+        });
+
+    });
