@@ -29,11 +29,21 @@ import { Chainable } from 'cypress';
 export { }; // Marks this file as a module
 
 Cypress.Commands.add('navigateToUrl', (url: string) => {
+    Cypress.log({
+        displayName: 'navigateToUrl',
+        message: `Navigating to URL: ${url}`,
+        consoleProps: () => ({ url }),
+    })
     cy.visit(url);
     cy.url().should('include', url, { timeout: 10000 });
 });
 
 Cypress.Commands.add('validateElementText', ({ selector, index = 0, expectedText }) => {
+    Cypress.log({
+        displayName: 'validateElementText',
+        message: `Validating text for selector: ${selector}, index: ${index}, expectedText: ${expectedText}`,
+        consoleProps: () => ({ selector, index, expectedText }),
+    });
     if (index !== undefined) {
         cy.get(selector).eq(index).should('exist').scrollIntoView({ timeout: 10000 }).should('have.text', expectedText);
     } else {
@@ -42,6 +52,11 @@ Cypress.Commands.add('validateElementText', ({ selector, index = 0, expectedText
 });
 
 Cypress.Commands.add('validateElementAttribute', ({ selector, index = 0, attribute, expectedValue }) => {
+    Cypress.log({
+        displayName: 'validateElementAttribute',
+        message: `Validating attribute for selector: ${selector}, index: ${index}, attribute: ${attribute}, expectedValue: ${expectedValue}`,
+        consoleProps: () => ({ selector, index, attribute, expectedValue }),
+    })
     // Start the command chain
     const element = cy.get(selector).eq(index).should('exist').scrollIntoView({ timeout: 10000 });
 
@@ -55,6 +70,11 @@ Cypress.Commands.add('validateElementAttribute', ({ selector, index = 0, attribu
 });
 
 Cypress.Commands.add('waitForPageToLoad', () => {
+    Cypress.log({
+        displayName: 'waitForPageToLoad',
+        message: 'Waiting for page to load completely',
+        consoleProps: () => ({}),
+    });
     cy.document().should((doc) => {
         expect(doc.readyState).to.be.oneOf(['interactive', 'complete']);
     });
