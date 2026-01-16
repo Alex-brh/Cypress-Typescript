@@ -10,7 +10,7 @@ describe('Testing the "Store" page by validating', () => {
         cy.url().should('include', '/store', { timeout: 10000 });
     });
 
-    it.only('the top disclaimer and the "Type here" button', () => {
+    it('the top disclaimer and the "Type here" button', () => {
         // Validate the top disclaimer text.
         cy.validateElementText({
             selector: 'div[class="jw-element-imagetext-text"] > p > span',
