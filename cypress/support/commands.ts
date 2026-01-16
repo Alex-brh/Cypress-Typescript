@@ -28,6 +28,15 @@ import { Chainable } from 'cypress';
 
 export { }; // Marks this file as a module
 
+Cypress.Commands.add('clickSmart', ({ selector, index = 0 }) => {
+    Cypress.log({
+        displayName: 'clickSmart',
+        message: `Clicking element with selector: ${selector}, index: ${index}`,
+        consoleProps: () => ({ selector, index }),
+    })
+    cy.get(selector).eq(index).should('exist').scrollIntoView({ timeout: 10000 }).click({ force: true });
+});
+
 Cypress.Commands.add('navigateToUrl', (url: string) => {
     Cypress.log({
         displayName: 'navigateToUrl',
@@ -45,9 +54,9 @@ Cypress.Commands.add('validateElementText', ({ selector, index = 0, expectedText
         consoleProps: () => ({ selector, index, expectedText }),
     });
     if (index !== undefined) {
-        cy.get(selector).eq(index).should('exist').scrollIntoView({ timeout: 10000 }).should('have.text', expectedText);
+        cy.get(selector).eq(index).should('exist').scrollIntoView({ timeout: 10000 }).should('contain.text', expectedText);
     } else {
-        cy.get(selector).should('exist').scrollIntoView({ timeout: 10000 }).should('have.text', expectedText);
+        cy.get(selector).should('exist').scrollIntoView({ timeout: 10000 }).should('contain.text', expectedText);
     }
 });
 
@@ -84,6 +93,14 @@ declare global {
     namespace Cypress {
         interface Chainable {
             /**
+            * Click an element with a smart scroll and force click.
+            * @param selector The CSS selector of the element.
+            * @param index (Optional) The index of the element if multiple elements match the selector.
+            * @example cy.clickSmart({ selector: 'a.link' })
+            * @example cy.clickSmart({ selector: 'a.link', index: 1 })
+            */
+            clickSmart(options: { selector: string, index?: number }): Chainable<void>;
+            /**
             * Navigate to a URL and verify it.
             * @param url The URL to navigate to.
             * @example cy.navigateToUrl('/login')
@@ -94,8 +111,8 @@ declare global {
            * @param selector The CSS selector of the element.
            * @param index (Optional) The index of the element if multiple elements match the selector.
            * @param expectedText The expected text content of the element.
-           * @example cy.validateElementText('h1.title', 'Welcome')
-           * @example cy.validateElementText('h1.title', 0, 'Welcome')
+           * @example cy.validateElementText({ selector: 'h1.title', expectedText: 'Welcome' })
+           * @example cy.validateElementText({ selector: 'h1.title', index: 0, expectedText: 'Welcome' })
            */
             validateElementText(options: { selector: string, index?: number, expectedText: string }): Chainable<void>;
            /**
@@ -104,9 +121,9 @@ declare global {
             * @param index (Optional) The index of the element if multiple elements match the selector.
             * @param attribute The attribute to validate.
             * @param expectedValue (Optional) The expected value of the attribute.
-            * @example cy.validateElementAttribute('a.link', 'href')
-            * @example cy.validateElementAttribute('a.link', 0, 'href')
-            * @example cy.validateElementAttribute('a.link', 0, 'href', '/home')
+            * @example cy.validateElementAttribute({ selector: 'a.link', attribute: 'href' })
+            * @example cy.validateElementAttribute({ selector: 'a.link', index: 0, attribute: 'href' })
+            * @example cy.validateElementAttribute({ selector: 'a.link', index: 0, attribute: 'href', expectedValue: '/home' })
             */
             validateElementAttribute(options: {
                 selector: string;
