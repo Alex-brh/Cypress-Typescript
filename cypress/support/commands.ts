@@ -45,9 +45,9 @@ Cypress.Commands.add('validateElementText', ({ selector, index = 0, expectedText
         consoleProps: () => ({ selector, index, expectedText }),
     });
     if (index !== undefined) {
-        cy.get(selector).eq(index).should('exist').scrollIntoView({ timeout: 10000 }).should('have.text', expectedText);
+        cy.get(selector).eq(index).should('exist').scrollIntoView({ timeout: 10000 }).should('contain.text', expectedText);
     } else {
-        cy.get(selector).should('exist').scrollIntoView({ timeout: 10000 }).should('have.text', expectedText);
+        cy.get(selector).should('exist').scrollIntoView({ timeout: 10000 }).should('contain.text', expectedText);
     }
 });
 

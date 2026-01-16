@@ -5,7 +5,7 @@
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             "price": "CA$0.99",
             "availability": "Unavailable",
-            "enabledOrDisabled": "Disabled",
+            "addToCartText": "Disabled",
             "addToWishListButton": "disabled",
             "isThereSeeDetailsButton": false
         },
@@ -14,7 +14,7 @@
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             "price": "CA$0.89",
             "availability": "Unavailable",
-            "enabledOrDisabled": "Disabled",
+            "addToCartText": "Disabled",
             "addToWishListButton": "disabled",
             "isThereSeeDetailsButton": true
         },
@@ -23,7 +23,7 @@
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             "price": "CA$0.79",
             "availability": "Unavailable",
-            "enabledOrDisabled": "Disabled",
+            "addToCartText": "Disabled",
             "addToWishListButton": "disabled",
             "isThereSeeDetailsButton": true
         }

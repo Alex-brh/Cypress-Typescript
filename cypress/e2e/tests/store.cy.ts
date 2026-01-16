@@ -11,9 +11,8 @@ describe('Testing the "Store" page by validating', () => {
     });
 
     it('the presence of all product items on the Store page', () => {
-        data.products.forEach((product) => {
-            
-        });
+        // Validate the presence of all product items on the Store page.
+        storePage.validateStorePageProducts({ data: data });
     });
 
 });
