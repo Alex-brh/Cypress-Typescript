@@ -28,7 +28,7 @@ interface ValidateOptions {
 interface ValidateProductDetailsOptions {
     data: {
         productDetails: ProductDetails[]; // The 'productDetails' is an array of ProductDetails
-};
+    };
 }
 
 export class StorePage {
@@ -89,6 +89,9 @@ export class StorePage {
 
     validateProductDetails(options: ValidateProductDetailsOptions): void {
         cy.wrap(options.data.productDetails).each((productDetails: ProductDetails) => {
+            // Open the product details page.
+            cy.clickSmart({ selector: `h3[class="product__heading heading__no-margin"] > a[data-jwlink-title="${productDetails.name}"]` });
+            cy.waitForPageToLoad();
             // Validate product Name.
             cy.validateElementText({
                 selector: 'h1[class="product-page__heading"]',
@@ -129,7 +132,14 @@ export class StorePage {
                     });
                 });
             }
+            // If there are multiple products to validate, navigate back to the Store page after each validation.
+            cy.log(`Number of products to validate: ${options.data.productDetails.length}`);
+            if (options.data.productDetails.length > 1) {
+                cy.clickSmart({ selector: 'a[href="/store"]' });
+                cy.waitForPageToLoad();
+            }
         });
+
     }
 
 }

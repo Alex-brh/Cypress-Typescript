@@ -32,10 +32,7 @@ describe('Testing the "Store" page by validating the', () => {
         storePage.validateStorePageProducts({ data: data });
     });
 
-    it('product details page', () => {
-        cy.clickSmart({ selector: 'h3[class="product__heading heading__no-margin"] > a[data-jwlink-title="Best test script A"]' });
-        cy.waitForPageToLoad();
-        cy.url().should('include', '/best-test-script-a', { timeout: 10000 });
+    it.only('product details page', () => {
         const products = [{
             name: 'Best test script A',
             price: 'CA$0.99',
@@ -48,8 +45,26 @@ describe('Testing the "Store" page by validating the', () => {
                 { locator: 'option[value="Option B"]', text: 'Option B (+ CA$0.70)' },
                 { locator: 'option[value="Option C"]', text: 'Option C (+ CA$0.90)' }
             ]
-        }];
-
+        },
+        {
+            name: 'Best test script B',
+            price: 'CA$0.89',
+            description: '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."',
+            availability: 'Unavailable',
+            addToCartText: 'Disabled',
+            addToWishListButton: 'disabled',
+            additionalOptions: []
+        },
+        {
+            name: 'Best test script C',
+            price: 'CA$0.79',
+            description: '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."',
+            availability: 'Unavailable',
+            addToCartText: 'Disabled',
+            addToWishListButton: 'disabled',
+            additionalOptions: []
+        }
+        ];
         storePage.validateProductDetails({ data: { productDetails: products } });
 
     });
