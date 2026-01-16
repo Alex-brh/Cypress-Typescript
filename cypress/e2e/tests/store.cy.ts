@@ -32,7 +32,7 @@ describe('Testing the "Store" page by validating the', () => {
         storePage.validateStorePageProducts({ data: data });
     });
 
-    it.only('product details page', () => {
+    it('product details page', () => {
         const products = [{
             name: 'Best test script A',
             price: 'CA$0.99',
