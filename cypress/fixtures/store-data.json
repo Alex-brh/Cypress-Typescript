@@ -1,0 +1,31 @@
+{
+    "products": [
+        {
+            "title": "Best test script A",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "price": "CA$0.99",
+            "availability": "Unavailable",
+            "enabledOrDisabled": "Disabled",
+            "addToWishListButton": "disabled",
+            "isThereSeeDetailsButton": false
+        },
+        {
+            "title": "Best test script B",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "price": "CA$0.89",
+            "availability": "Unavailable",
+            "enabledOrDisabled": "Disabled",
+            "addToWishListButton": "disabled",
+            "isThereSeeDetailsButton": true
+        },
+        {
+            "title": "Best test script C",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "price": "CA$0.79",
+            "availability": "Unavailable",
+            "enabledOrDisabled": "Disabled",
+            "addToWishListButton": "disabled",
+            "isThereSeeDetailsButton": true
+        }
+    ]
+}
