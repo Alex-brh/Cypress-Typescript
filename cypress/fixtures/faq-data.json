@@ -1,0 +1,13 @@
+{
+    "faqs": [
+        {
+            "question": "Q: What is this website all about?",
+            "answer": "A: It's not a real e-comm website. It's a demo site for educational purposes ONLY! No real items can be purchased or/and delivered here."
+        },
+        {
+            "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        }
+    ],
+    "ServiceExample": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "Overview": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+}
