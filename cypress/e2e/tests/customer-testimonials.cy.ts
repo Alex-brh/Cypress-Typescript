@@ -16,6 +16,37 @@ describe('Test "Customer Testimonials" page by validating', () => {
             selector: 'img[class^="jw-element-image__image"]',
             attribute: 'src'
         });
+        // Validate h2 headers.
+        const headers = [
+            "Testimonials",
+            "Add comment",
+            "Comments"
+        ];
+        // Validate each h2 header.
+        headers.forEach((headerText, index) => {
+            cy.validateElementText({
+                selector: 'div > h2',
+                index: index,
+                expectedText: headerText
+            });
+        });
+        // Validate each testimonial text against the data file.
+        data.testimonials.forEach((testimonial, index) => {
+            if (index < 7) {
+                cy.validateElementText({
+                    selector: 'div[class="jw-element-imagetext-text"] > p',
+                    index: index,
+                    expectedText: testimonial.text
+                });
+            }
+            else {
+                cy.validateElementText({
+                    // This has a different CSS locator. Hence using the method deafault index, which is zero.
+                    selector: 'div[class="jw-element-imagetext-text"] > p > span',
+                    expectedText: testimonial.text
+                });
+            }
+        });
 
     })
 
