@@ -44,7 +44,7 @@ export class StorePage {
             });
             // Validate product pricing.
             cy.validateElementText({
-                selector: `div[class="product__responsive-top"] div > div > span`,
+                selector: `div[class^="product__price"] > span[class="product__price__price"]`,
                 index: i,
                 expectedText: product.price,
             });
@@ -56,7 +56,7 @@ export class StorePage {
             });
             // Validate product availability
             cy.validateElementText({
-                selector: `div[class="product__responsive-top"] > div[class="product-sticker"]`,
+                selector: `div[class="product__top"] > div[class="product-sticker"]`,
                 index: i,
                 expectedText: product.availability,
             });
