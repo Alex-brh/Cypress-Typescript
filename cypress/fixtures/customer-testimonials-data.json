@@ -24,5 +24,16 @@
         {
             "text": "website. It's being used for educational purposes ONLY. No items can be purchased and/or delivered through this website."
         }
+    ],
+    "fieldLabels": [
+{
+    "label": "Name *"
+},
+{
+    "label": "Email address *"
+},
+{
+    "label": "Message *"
+}
     ]
 }

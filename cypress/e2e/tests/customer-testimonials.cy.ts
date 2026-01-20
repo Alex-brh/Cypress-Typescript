@@ -32,22 +32,49 @@ describe('Test "Customer Testimonials" page by validating', () => {
         });
         // Validate each testimonial text against the data file.
         data.testimonials.forEach((testimonial, index) => {
-            if (index < 7) {
-                cy.validateElementText({
-                    selector: 'div[class="jw-element-imagetext-text"] > p',
-                    index: index,
-                    expectedText: testimonial.text
-                });
-            }
-            else {
-                cy.validateElementText({
-                    // This has a different CSS locator. Hence using the method deafault index, which is zero.
-                    selector: 'div[class="jw-element-imagetext-text"] > p > span',
-                    expectedText: testimonial.text
-                });
-            }
-        });
+            // Select the locator based on the index threshold
+            const selector = index < 7
+                ? 'div.jw-element-imagetext-text > p'
+                : 'div.jw-element-imagetext-text > p > span';
 
+            cy.validateElementText({
+                selector: selector,
+                index: index < 7 ? index : 0, // Reset index to 0 for the alternative selector
+                expectedText: testimonial.text
+            });
+        });
+    })
+
+    it('the "Add comment" section appearance', () => {
+        // Validate input fields labels appearance.
+        data.fieldLabels.forEach((fieldLabel, index) => {
+            cy.validateElementText({
+                selector: 'label[class="jw-element-form-label"]',
+                index: index,
+                expectedText: fieldLabel.label
+            });
+        })
+        // Validate input fields appearance.
+        const attributes = [
+            { name: 'name' },
+            { name: 'email' },
+            { name: 'body' }
+        ];
+
+        attributes.forEach(({ name }) => {
+            // The 'body' field is a textarea.
+            const selector = name === 'body' ? 'textarea[name="body"]' : `input[name="${name}"]`;
+
+            cy.validateElementAttribute({
+                selector,
+                attribute: 'id'
+            });
+        });
+        // Validate the 'Submit comment' button appearance.
+        cy.validateElementText({
+            selector: 'button[name="submit"]',
+            expectedText: 'Submit comment'
+        });
     })
 
 });
