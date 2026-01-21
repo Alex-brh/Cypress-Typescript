@@ -78,18 +78,7 @@ describe('Test "Customer Testimonials" page by validating', () => {
     })
 
     it('error messages on an empty form submission', () => {
-        // Click the 'Submit comment' button when the form is not populated
-        cy.clickSmart({ selector: 'button[name="submit"]', index: 0 });
-        // Wait for the error messages to appear.
-        cy.waitForPageToLoad();
-        cy.validateElementText({
-            selector: 'div[class="jw-element-form-error jw-comment-error"] > strong',
-            expectedText: 'Oops! Something went wrong.'
-        })
-        cy.validateElementText({
-            selector: 'div[class="jw-element-form-error jw-comment-error"]',
-            expectedText: 'Check the following fields and try again:'
-        })
+
         // Validate the error messages.
         const expectedText = [
             'Name is a required field.',
@@ -97,23 +86,8 @@ describe('Test "Customer Testimonials" page by validating', () => {
             'Message is a required field.',
             'Field is required'
         ]
-        cy.get('div[class="jw-element-form-error jw-comment-error"] > ul > li')
-            .then(($els) => {
-                // Get the text content of each element.
-                const actualText = Cypress._.map($els, 'innerText');
-                // Log the text content.
-                cy.wrap(actualText).then((arr) => {
-                    cy.log(JSON.stringify(arr));
-                });
-                // Validate the text content.
-                expect(actualText).to.have.members(expectedText);
-                expect(actualText).to.deep.equal(expectedText);
-            });
-        // Validate the captcha presence.
-        cy.validateElementAttribute({
-            selector: 'iframe[title="reCAPTCHA"]',
-            attribute: 'name'
-        })
+        customerTestimonialsPage.validateErrorMessages({ expectedText });
+    
     })
 
 });
