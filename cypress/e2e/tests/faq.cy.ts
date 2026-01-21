@@ -41,7 +41,7 @@ describe('Test "FAQ" page by validating', () => {
             expectedText: 'Create Your Own Website With'
         });
         cy.validateElementText({
-            selector: 'h3 > a > span',
+            selector: 'a[href^="https://www.webador.ca/"] > span',
             index: 0,
             expectedText: 'Webador'
         });
