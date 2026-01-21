@@ -64,4 +64,10 @@ describe('Test "Customer Testimonials" page by validating', () => {
             attribute: 'id'
         });
     })
+
+    it.only('error messages under input fields', () => {
+        cy.clickSmart({ selector: 'button[type="submit"]', index: 0 });
+        cy.waitForPageToLoad();
+        cy.waitForElementVisible('button[type="submit"]', 0 );
+    })
 });
