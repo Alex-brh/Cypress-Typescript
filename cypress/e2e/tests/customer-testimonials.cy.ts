@@ -23,7 +23,7 @@ describe('Test "Customer Testimonials" page by validating', () => {
             "Comments"
         ];
         // Validate each h2 header.
-        headers.forEach((headerText, index) => {
+        cy.wrap(headers).each((headerText, index) => {
             cy.validateElementText({
                 selector: 'div > h2',
                 index: index,
@@ -31,7 +31,7 @@ describe('Test "Customer Testimonials" page by validating', () => {
             });
         });
         // Validate each testimonial text against the data file.
-        data.testimonials.forEach((testimonial, index) => {
+        cy.wrap(data.testimonials).each((testimonial, index) => {
             // Select the locator based on the index threshold
             const selector = index < 7
                 ? 'div.jw-element-imagetext-text > p'
@@ -40,7 +40,7 @@ describe('Test "Customer Testimonials" page by validating', () => {
             cy.validateElementText({
                 selector: selector,
                 index: index < 7 ? index : 0, // Reset index to 0 for the alternative selector
-                expectedText: testimonial.text
+                expectedText: testimonial.text as unknown as string // Cast to string to avoid Cypress type error.
             });
         });
     })
@@ -54,17 +54,18 @@ describe('Test "Customer Testimonials" page by validating', () => {
                 expectedText: fieldLabel.label
             });
         })
-        // Validate input fields appearance.
+
         const attributes = [
             { name: 'name' },
             { name: 'email' },
             { name: 'body' }
         ];
-
-        attributes.forEach(({ name }) => {
+        // Validate each attribute.
+        cy.wrap(attributes).each((item: any) => {
+            // Destructure the 'name' property.
+            const { name } = item;
             // The 'body' field is a textarea.
             const selector = name === 'body' ? 'textarea[name="body"]' : `input[name="${name}"]`;
-
             cy.validateElementAttribute({
                 selector,
                 attribute: 'id'
@@ -87,7 +88,7 @@ describe('Test "Customer Testimonials" page by validating', () => {
             'Field is required'
         ]
         customerTestimonialsPage.validateErrorMessages({ expectedText });
-    
+
     })
 
 });
