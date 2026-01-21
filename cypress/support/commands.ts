@@ -114,7 +114,7 @@ declare global {
            * @example cy.validateElementText({ selector: 'h1.title', expectedText: 'Welcome' })
            * @example cy.validateElementText({ selector: 'h1.title', index: 0, expectedText: 'Welcome' })
            */
-            validateElementText(options: { selector: string, index?: number, expectedText: string }): Chainable<void>;
+            validateElementText(options: { selector: string, index?: number, expectedText: string | JQuery<HTMLElement> }): Chainable<void>;
            /**
             * Validate element attribute with OR without expected value.
             * @param selector The CSS selector of the element.
