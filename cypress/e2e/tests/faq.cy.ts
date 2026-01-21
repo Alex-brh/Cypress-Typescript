@@ -19,11 +19,16 @@ describe('Test "FAQ" page by validating', () => {
     })
 
     it('each question and answer text', () => {
-        data.textInClosedSections.forEach((faq, index) => {
+        cy.wrap(data.textInClosedSections).each((faq, index) => {
             // Click a caret to expand the question/answer.
             cy.clickSmart({ selector: 'i[class="jw-element-accordion__icon website-rendering-icon-right-open"]', index: index });
             // Validate the answer text.
-            cy.validateElementText({ selector: 'div[class="jw-element-accordion__content-wrap"] > p > span', index: index, expectedText: faq.question });
+            cy.validateElementText({
+                selector: 'div[class="jw-element-accordion__content-wrap"] > p > span',
+                index: index,
+                // Define the expected text as the question from the data file.
+                expectedText: (faq as unknown as { question: string }).question as unknown as string
+            });
         });
     });
 
