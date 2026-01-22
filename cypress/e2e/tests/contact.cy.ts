@@ -5,9 +5,10 @@ const contactPage = new ContactPage();
 describe('Test "Customer Testimonials" page by validating', () => {
 
     beforeEach(() => {
-        cy.navigateToUrl('/contact');
-        cy.waitForPageToLoad();
+        cy.launchTheStore();
+        cy.clickSmart({ selector: 'a[href="/contact"]', index: 0 });
         cy.url().should('include', '/contact', { timeout: 10000 });
+        cy.waitForPageToLoad();
     });
 
     it('appearance of elements', () => {

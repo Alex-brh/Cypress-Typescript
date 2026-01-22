@@ -28,6 +28,13 @@ import { Chainable } from 'cypress';
 
 export { }; // Marks this file as a module
 
+Cypress.Commands.add('launchTheStore', () => {
+    cy.visit('/');
+    cy.url().should('include', Cypress.config().baseUrl, { timeout: 30000 });
+    cy.waitForPageToLoad();
+    cy.get('body').should('be.visible');
+});
+
 Cypress.Commands.add('waitForElementVisible', (locator: string, index: number = 0, options: Partial<Cypress.Loggable & Cypress.Timeoutable> = {}) => {
     // Enhanced logging for the Cypress Command Log
     const log = Cypress.log({
@@ -112,13 +119,19 @@ Cypress.Commands.add('waitForPageToLoad', () => {
 declare global {
     namespace Cypress {
         interface Chainable {
-           /**
-           * Custom command to wait for an element to be attached to the DOM and become visible.
-           * @param locator - CSS selector for the element
-           * @param index - Optional: Index of the element
-           * @param options - Optional: Override timeout or other Cypress options
-           * @example cy.waitForVisible('.submit-btn')
-           */
+            /** 
+            * Launch the store's Home page.
+            * @param none
+            * @example cy.launchTheStore()
+            */
+            launchTheStore(): Chainable<void>;
+            /**
+            * Custom command to wait for an element to be attached to the DOM and become visible.
+            * @param locator - CSS selector for the element
+            * @param index - Optional: Index of the element
+            * @param options - Optional: Override timeout or other Cypress options
+            * @example cy.waitForVisible('.submit-btn')
+            */
             waitForElementVisible(
                 locator: string,
                 index?: number,
