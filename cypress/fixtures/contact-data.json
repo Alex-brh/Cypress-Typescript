@@ -1,0 +1,13 @@
+{
+    "fieldLabels": [
+        {
+            "label": "Name *"
+        },
+        {
+            "label": "Email address *"
+        },
+        {
+            "label": "Message *"
+        }
+    ]
+}
