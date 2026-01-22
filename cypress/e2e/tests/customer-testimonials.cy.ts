@@ -18,39 +18,10 @@ describe('Test "Customer Testimonials" page by validating', () => {
 
     it('the "Add comment" section appearance', () => {
         // Validate input fields labels appearance.
-        data.fieldLabels.forEach((fieldLabel, index) => {
-            cy.validateElementText({
-                selector: 'label[class="jw-element-form-label"]',
-                index: index,
-                expectedText: fieldLabel.label
-            });
-        })
-
-        const attributes = [
-            { name: 'name' },
-            { name: 'email' },
-            { name: 'body' }
-        ];
-        // Validate each attribute.
-        cy.wrap(attributes).each((item: any) => {
-            // Destructure the 'name' property.
-            const { name } = item;
-            // The 'body' field is a textarea.
-            const selector = name === 'body' ? 'textarea[name="body"]' : `input[name="${name}"]`;
-            cy.validateElementAttribute({
-                selector,
-                attribute: 'id'
-            });
-        });
-        // Validate the 'Submit comment' button appearance.
-        cy.validateElementText({
-            selector: 'button[name="submit"]',
-            expectedText: 'Submit comment'
-        });
+        customerTestimonialsPage.validateAddCommentSectionAppearance(data);
     })
 
     it('error messages on an empty form submission', () => {
-
         // Validate the error messages.
         const expectedText = [
             'Name is a required field.',
@@ -59,7 +30,6 @@ describe('Test "Customer Testimonials" page by validating', () => {
             'Field is required'
         ]
         customerTestimonialsPage.validateErrorMessages({ expectedText });
-
     })
 
 });

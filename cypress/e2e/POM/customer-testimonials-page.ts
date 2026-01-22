@@ -1,9 +1,17 @@
 
 interface data {
-    testimonials: { text: string }[]
+    testimonials: { text: string }[];
+    fieldLabels: { label: string }[];
 }
 export class CustomerTestimonialsPage {
 
+    /**
+     * Validate the error messages.
+     * @param options
+     * @param options.expectedText
+     * @returns void
+     * @example cy.validateErrorMessages({ expectedText: ['Name is a required field.', 'Email address is a required field.', 'Message is a required field.', 'Field is required'] })
+     */
     validateErrorMessages(options: { expectedText: Array<string> }): void {
         // Click the 'Submit comment' button when the form is not populated
         cy.clickSmart({ selector: 'button[name="submit"]', index: 0 });
@@ -36,6 +44,12 @@ export class CustomerTestimonialsPage {
             });
     }
 
+    /**
+     * Validate the page appearance.
+     * @param data
+     * @returns void
+     * @example cy.validateElementAppearance(data)
+     */
     validateElementAppearance(data: data): void {
         // Validate the top image visibility.
         cy.validateElementAttribute({
@@ -71,4 +85,41 @@ export class CustomerTestimonialsPage {
         });
     }
 
+    /**
+     * Validate the add comment section appearance.
+     * @param data
+     * @returns void
+     * @example cy.validateAddCommentSectionAppearance(data)
+     */
+    validateAddCommentSectionAppearance(data: data): void {
+        // Validate input fields labels appearance.
+        data.fieldLabels.forEach((fieldLabel, index) => {
+            cy.validateElementText({
+                selector: 'label[class="jw-element-form-label"]',
+                index: index,
+                expectedText: fieldLabel.label
+            });
+        })
+        const attributes = [
+            { name: 'name' },
+            { name: 'email' },
+            { name: 'body' }
+        ];
+        // Validate each attribute.
+        cy.wrap(attributes).each((item: any) => {
+            // Destructure the 'name' property.
+            const { name } = item;
+            // The 'body' field is a textarea.
+            const selector = name === 'body' ? 'textarea[name="body"]' : `input[name="${name}"]`;
+            cy.validateElementAttribute({
+                selector,
+                attribute: 'id'
+            });
+        });
+        // Validate the 'Submit comment' button appearance.
+        cy.validateElementText({
+            selector: 'button[name="submit"]',
+            expectedText: 'Submit comment'
+        });
+    }
 }
