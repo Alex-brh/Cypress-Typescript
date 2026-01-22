@@ -71,8 +71,8 @@ export class ContactPage {
         // Validate the browser native error message showing up under the 'Name *' input field.
         cy.get('input[type="text"]').eq(0)
             .should('exist')
-            // Since Cypress yields a jQuery-wrapped object, you must cast it to JQuery<HTMLInputElement> to access the native HTMLInputElement and 
-            // its properties with full IntelliSense support. 
+            // Since Cypress yields a jQuery-wrapped object, we must cast it to JQuery<HTMLInputElement> to access the native HTMLInputElement and 
+            // its properties with full IntelliSense support.
             .then(($input: JQuery<HTMLInputElement>) => {
                 // Access the native DOM element via index [0]
                 const nativeElement = $input[0];
