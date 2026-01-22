@@ -16,21 +16,8 @@ describe('Test "Customer Testimonials" page by validating', () => {
     })
 
     it('that empty form is not getting submitted', () => {
-        cy.waitForElementVisible('button[type="submit"]', 0);
-        cy.clickSmart({ selector: 'button[type="submit"]', index: 0 });
-        cy.waitForPageToLoad();
-        // Validate the page url.
-        cy.url().should('include', '/contact', { timeout: 10000 });
-        // Validate the browser native error message showing up under the 'Name *' input field.
-        cy.get('input[type="text"]').eq(0)
-            .should('exist')
-            // Since Cypress yields a jQuery-wrapped object, you must cast it to JQuery<HTMLInputElement> to access the native HTMLInputElement and 
-            // its properties with full IntelliSense support. 
-            .then(($input: JQuery<HTMLInputElement>) => {
-                // Access the native DOM element via index [0]
-                const nativeElement = $input[0];
-                // Verify the message content
-                expect(nativeElement.validationMessage).to.equal('Please fill out this field.');
-            });
+        const errorMessage = 'Please fill out this field.'
+        // Validate errors on an empty form submission.
+        contactPage.validateEmptyFormSubmission({ error: errorMessage });
     })
 });

@@ -1,12 +1,15 @@
 
 interface ContactPageData {
- // Define the interface for the options object.
-  fieldLabels: { label: string }[];
+    // Define the interface for the options object.
+    fieldLabels: { label: string }[];
+}
+interface FormOptions {
+    error: string;
 }
 export class ContactPage {
 
-    validateContactPageAppearance(data : ContactPageData): void {
-         // Validate the top disclaimer visibility.
+    validateContactPageAppearance(data: ContactPageData): void {
+        // Validate the top disclaimer visibility.
         cy.validateElementText({
             selector: 'div[class="jw-element-imagetext-text"] > p > span',
             expectedText: "DISCLAIMER: This is NOT a real e-comm website. It's being used for educational purposes ONLY. No real items can be purchased and/or delivered through this website."
@@ -59,5 +62,22 @@ export class ContactPage {
             attribute: 'id'
         });
     }
-
+    validateEmptyFormSubmission(validation: FormOptions): void {
+        cy.waitForElementVisible('button[type="submit"]', 0);
+        cy.clickSmart({ selector: 'button[type="submit"]', index: 0 });
+        cy.waitForPageToLoad();
+        // Validate the page url.
+        cy.url().should('include', '/contact', { timeout: 10000 });
+        // Validate the browser native error message showing up under the 'Name *' input field.
+        cy.get('input[type="text"]').eq(0)
+            .should('exist')
+            // Since Cypress yields a jQuery-wrapped object, you must cast it to JQuery<HTMLInputElement> to access the native HTMLInputElement and 
+            // its properties with full IntelliSense support. 
+            .then(($input: JQuery<HTMLInputElement>) => {
+                // Access the native DOM element via index [0]
+                const nativeElement = $input[0];
+                // Verify the message content
+                expect(nativeElement.validationMessage).to.equal(validation.error);
+            });
+    }
 }
