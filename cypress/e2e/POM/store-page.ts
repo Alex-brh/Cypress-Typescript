@@ -1,4 +1,8 @@
 // Define an interface for the expected structure of a single product
+interface DisclaimerText {
+    text: string[];
+}
+
 interface Product {
     title: string;
     price: string;
@@ -32,6 +36,23 @@ interface ValidateProductDetailsOptions {
 }
 
 export class StorePage {
+
+    validateTopDisclaimerAndTypeHereButton(options: DisclaimerText): void {
+        // Validate the top disclaimer text.
+        cy.validateElementText({
+            selector: 'div[class="jw-element-imagetext-text"] > p > span',
+            expectedText: options.text[0]
+        });
+        cy.validateElementText({
+            selector: 'div[class="jw-element-imagetext-text"] > p > span',
+            expectedText: options.text[1]
+        });
+        // Validate the "Type here" button text.
+        cy.validateElementText({
+            selector: 'a[class^="jw-element-content jw-btn"]',
+            expectedText: options.text[2]
+        });
+    }
 
     validateStorePageProducts(options: ValidateOptions): void {
         let indexForSeeDetailsButtons = 0;
