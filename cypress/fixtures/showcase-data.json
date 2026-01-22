@@ -53,5 +53,12 @@
         {
             "paragraphText": "DISCLAIMER: This is NOT a real"
         }
+    ],
+    "images": [
+        {"attribute": "src"},
+        {"attribute": "src"},
+        {"attribute": "src"},
+        {"attribute": "src"},
+        {"attribute": "src"}
     ]
 }
