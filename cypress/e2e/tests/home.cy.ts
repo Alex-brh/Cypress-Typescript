@@ -26,7 +26,6 @@ describe('Test "Home" page by validating', () => {
 
     it('paragraph contents', () => {
         cy.wrap(data.paragraphs).each((item: any, i) => {
-            cy.log(`Validating: ${item.paragraphText}`);
             cy.validateElementText({ selector: 'div > p', index: i, expectedText: item.paragraphText });
         });
         cy.validateElementText({ selector: 'h3', expectedText: `“Online Store offers an incredible variety of unique items that I can't find anywhere else!”` });
@@ -43,22 +42,8 @@ describe('Test "Home" page by validating', () => {
             { menuText: 'Showcase', href: "/showcase" },
             { menuText: 'Clearance', href: "/clearance" }
         ]
-        cy.wrap(topBarMenuItems).each((menuItem: any, i) => {
-            cy.log(`Validating menu item: ${menuItem.menuText}`);
-            cy.get(`a[class^="jw-menu-link"][href="${menuItem.href}"]`).should('exist').scrollIntoView({ timeout: 10000 }).within(() => {
-                cy.get('span').should('contain.text', menuItem.menuText);
-            });
-            // Click on the menu item to navigate to the corresponding page.
-            cy.get(`a[class^="jw-menu-link"][href="${menuItem.href}"]`).click({ force: true });
-            // Validate page URL.
-            cy.url().should('include', menuItem.href, { timeout: 10000 });
-            cy.waitForPageToLoad();
-            cy.get(`a[class*="js-active-menu-item"][href="${menuItem.href}"]`).should('exist');
-        });
-        // Validate the 'About Us' button navigation.
-        cy.get('a[title="About Us"][href="/contact"]').should('exist').should('contain.text', 'About Us').scrollIntoView({ timeout: 10000 }).click({ force: true });
-        cy.waitForPageToLoad();
-        cy.url().should('include', '/contact', { timeout: 10000 });
+        // Validate the top bar menu items on the Home page.
+        homePage.topBarMenuItemValidation({ topBarMenuItems: topBarMenuItems });
     });
 
     it('page images', () => {
