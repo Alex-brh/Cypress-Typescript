@@ -8,7 +8,7 @@ describe('Test "Home" page by validating', () => {
     const homeData = require('../../fixtures/home-data.json');
 
     beforeEach(() => {
-        cy.navigateToUrl('/');
+        cy.launchTheStore();
         cy.waitForPageToLoad();
     });
 

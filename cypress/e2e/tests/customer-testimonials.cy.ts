@@ -5,7 +5,7 @@ const customerTestimonialsPage = new CustomerTestimonialsPage();
 describe('Test "Customer Testimonials" page by validating', () => {
 
     beforeEach(() => {
-        cy.navigateToUrl('/');
+        cy.launchTheStore();
         cy.clickSmart({ selector: 'a[href="/customer-testimonials"]', index: 0 });
         cy.url().should('include', '/customer-testimonials', { timeout: 10000 });
         cy.waitForPageToLoad();
