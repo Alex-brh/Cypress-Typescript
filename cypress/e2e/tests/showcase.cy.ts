@@ -30,4 +30,10 @@ describe('Test "Showcase" page by validating', () => {
             cy.validateElementAttribute({ selector: 'img[class^="jw-element-image__image"]', index: index, attribute: image.attribute });
         });
     });
+
+    it('the "Explore products" button', () => {
+        // Validate the "Explore products" button.
+        cy.validateElementAttribute({ selector: 'a[href="/store"]', index: 1, attribute: 'title', expectedValue: 'Store' });
+        cy.validateElementText({ selector: 'a[href="/store"] > span', index: 2, expectedText: 'Explore products' });
+    });
 });
