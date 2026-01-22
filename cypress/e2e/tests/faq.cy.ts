@@ -7,8 +7,8 @@ describe('Test "FAQ" page by validating', () => {
 
     beforeEach(() => {
         cy.navigateToUrl('/faq');
-        cy.waitForPageToLoad();
         cy.url().should('include', '/faq', { timeout: 10000 });
+        cy.waitForPageToLoad();
     });
 
     it('URL and page top question and answer', () => {

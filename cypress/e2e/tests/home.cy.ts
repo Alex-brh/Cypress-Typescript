@@ -9,6 +9,7 @@ describe('Test "Home" page by validating', () => {
 
     beforeEach(() => {
         cy.navigateToUrl('/');
+        cy.waitForPageToLoad();
     });
 
     it('URL and title', () => {
