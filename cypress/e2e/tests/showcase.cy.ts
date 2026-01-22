@@ -16,4 +16,9 @@ describe('Test "Showcase" page by validating', () => {
         showcasePage.h2HeaderValidation(data);
     })
 
+    it('each paragraph text', () => {
+        cy.wrap(data.paragraphs).each((paragraph:  { paragraphText: string }, index) => { 
+            cy.validateElementText({ selector: 'p', index: index, expectedText: paragraph.paragraphText });
+        }); 
+    });
 });
