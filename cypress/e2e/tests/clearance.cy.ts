@@ -22,4 +22,9 @@ describe('Test "Clearance" page by validating', () => {
         clearancePage.paragraphTextValidation(data);
     });
 
+    it('buttons attributes', () => {
+        // Validate buttons attributes.
+        clearancePage.buttonsValidation();
+    });
+
 });

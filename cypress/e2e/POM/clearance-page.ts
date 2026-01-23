@@ -36,4 +36,33 @@ export class ClearancePage {
             });
         })
     }
+
+    /**
+     * Validate buttons on the "Clearance" page.
+     * @returns void
+     * @example cy.buttonsValidation()
+     */
+    buttonsValidation(): void {
+        // Validate the "Contact us" button attributes.
+        cy.validateElementAttribute({
+            selector: 'a[title="Contact"]',
+            attribute: "href",
+            expectedValue: "/contact"
+        });
+        cy.validateElementText({
+            selector: 'a[title="Contact"] > span',
+            expectedText: "Contact us"
+        });
+        // Validate the 'Let's get started' button attributes.
+        cy.validateElementAttribute({
+            selector: 'a[title="Home"]',
+            attribute: "href",
+            expectedValue: "/"
+        });
+        cy.validateElementText({
+            selector: 'a[title="Home"] > span',
+            expectedText: "Let's get started"
+        });
+
+    }
 }
