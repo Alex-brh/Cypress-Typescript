@@ -5,10 +5,8 @@ const contactPage = new ContactPage();
 describe('Test "Customer Testimonials" page by validating', () => {
 
     beforeEach(() => {
-        cy.launchTheStore();
-        cy.clickSmart({ selector: 'a[href="/contact"]', index: 0 });
-        cy.url().should('include', '/contact', { timeout: 10000 });
-        cy.waitForPageToLoad();
+        // Navigate to the Contact page before each test.
+        contactPage.navigateToContactPage();
     });
 
     it('appearance of elements', () => {

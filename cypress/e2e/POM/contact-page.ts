@@ -8,6 +8,18 @@ interface FormOptions {
 }
 export class ContactPage {
 
+    /**
+     * Navigate to the Contact page.
+     * @returns void
+     * @example cy.navigateToContactPage()
+     */
+    navigateToContactPage(): void {
+        cy.launchTheStore();
+        cy.clickSmart({ selector: 'a[href="/contact"]', index: 0 });
+        cy.url().should('include', '/contact', { timeout: 10000 });
+        cy.waitForPageToLoad();
+    }
+
     validateContactPageAppearance(data: ContactPageData): void {
         // Validate the top disclaimer visibility.
         cy.validateElementText({

@@ -5,10 +5,8 @@ const customerTestimonialsPage = new CustomerTestimonialsPage();
 describe('Test "Customer Testimonials" page by validating', () => {
 
     beforeEach(() => {
-        cy.launchTheStore();
-        cy.clickSmart({ selector: 'a[href="/customer-testimonials"]', index: 0 });
-        cy.url().should('include', '/customer-testimonials', { timeout: 10000 });
-        cy.waitForPageToLoad();
+        // Navigate to the "Customer Testimonials" page.
+        customerTestimonialsPage.navigateToCustomerTestimonialsPage();
     });
 
     it('appearance of elements', () => {

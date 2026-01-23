@@ -37,6 +37,18 @@ interface ValidateProductDetailsOptions {
 
 export class StorePage {
 
+    /**
+     * Navigates to the Store page.
+     * @returns void
+     * @example cy.navigateToStorePage()
+     */
+    navigateToStorePage(): void {
+        cy.launchTheStore();
+        cy.clickSmart({ selector: 'a[href="/store"]', index: 0 });
+        cy.url().should('include', '/store', { timeout: 30000 });
+        cy.waitForPageToLoad();
+    }
+
     validateTopDisclaimerAndTypeHereButton(options: DisclaimerText): void {
         // Validate the top disclaimer text.
         cy.validateElementText({

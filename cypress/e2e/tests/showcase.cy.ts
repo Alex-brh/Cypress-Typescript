@@ -6,10 +6,8 @@ describe('Test "Showcase" page by validating', () => {
 
     beforeEach(() => {
         cy.launchTheStore();
-        // Clik the "Showcase" menu item.
-        cy.clickSmart({ selector: 'a[href="/showcase"]', index: 0 });
-        cy.url().should('include', '/showcase', { timeout: 10000 });
-        cy.waitForPageToLoad();
+        // Navigate to the "Showcase" page.
+        showcasePage.navigateToShowcasePage();
     });
 
     it('h2 headers', () => {
