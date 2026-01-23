@@ -26,5 +26,25 @@
         {
             "text": "DISCLAIMER: This is NOT a real"
         }
+    ],
+    "sortDropdownOptions": [
+        {
+            "value": "manual"
+        },
+        {
+            "value": "price-asc"
+        },
+        {
+            "value": "price-desc"
+        },
+        {
+            "value": "title-asc"
+        },
+        {
+            "value": "title-desc"
+        },
+        {
+            "value": "created-desc"
+        }
     ]
 }

@@ -1,3 +1,4 @@
+import { any } from 'cypress/types/bluebird';
 import * as data from '../../fixtures/clearance-data.json'
 import { ClearancePage } from '../POM/clearance-page';
 const clearancePage = new ClearancePage();
@@ -22,6 +23,11 @@ describe('Test "Clearance" page by validating', () => {
     it('buttons attributes', () => {
         // Validate buttons attributes.
         clearancePage.buttonsValidation();
+    });
+
+    it('the "Sort" dropdown options', () => {
+        // Validate the "Sort" dropdown options.
+        clearancePage.sortDropdownOptionsValidation(data);
     });
 
 });
