@@ -4,6 +4,23 @@ interface ClearancePageData {
     sortDropdownOptions: { value: string }[];
 }
 
+interface BestProductDetails {
+    productHeaderIndex?: number; // Optional.
+    productImageIndex?: number; // Optional.
+    buttonDisabledIndex?: number; // Optional.
+    productPriceIndex?: number; // Optional.
+    productDescriptionIndex?: number; // Optional.
+    buttonAddToWishListIndex?: number; // Optional.
+    seeDetailsButtonIndex?: number; // Optional.
+    clearanceLabelIndex?: number; // Optional.
+    productHeaderText?: string; // Optional.
+    productCost?: string; // Optional.
+    productDescriptionText?: string; // Optional.
+    productUrlRouting?: string; // Optional.
+    amountOfProductsDropdown?: number; // Optional.
+    selectedAmountIndex?: number; // Optional.
+}
+
 export class ClearancePage {
 
     /**
@@ -107,5 +124,103 @@ export class ClearancePage {
                 .find('option:selected')
                 .should('have.value', option.value);
         });
+    }
+
+    /**
+     * Validate the details of the Best Products on the "Clearance" page.
+     * @param bestProductDetails
+     */
+    validateBestProductDetails(bestProductDetails: BestProductDetails): void {
+        const {
+            productHeaderIndex,
+            productImageIndex,
+            buttonDisabledIndex,
+            productPriceIndex,
+            productDescriptionIndex,
+            buttonAddToWishListIndex,
+            seeDetailsButtonIndex,
+            clearanceLabelIndex,
+            productHeaderText,
+            productCost,
+            productDescriptionText,
+            productUrlRouting,
+            selectedAmountIndex
+        } = bestProductDetails;
+        if (productHeaderIndex !== undefined && productHeaderText !== undefined) {
+            // Validate product header text.
+            cy.validateElementText({
+                selector: 'h3[class^="product__heading"] > a',
+                index: productHeaderIndex,
+                expectedText: productHeaderText,
+            });
+
+        }
+        if (productImageIndex !== undefined) {
+            // Validate that the product image is visible.
+            cy.validateElementAttribute({
+                selector: 'a[data-segment-type="product"] > img',
+                index: productImageIndex,
+                attribute: 'src',
+            })
+
+        }
+        if (buttonDisabledIndex !== undefined) {
+            // Validate that the 'Disabled' button is visible.
+            cy.validateElementText({
+                selector: 'button[title="Disabled"][disabled]',
+                index: buttonDisabledIndex,
+                expectedText: 'Disabled',
+            });
+        }
+        if (productPriceIndex !== undefined && productCost !== undefined) {
+            // Validate product price text.
+            cy.validateElementText({
+                selector: 'div[class="product__price js-product-container__price"] > span',
+                index: productPriceIndex,
+                expectedText: productCost,
+            });
+        }
+        if (productDescriptionIndex !== undefined && productDescriptionText !== undefined) {
+            // Validate product description text.
+            cy.validateElementText({
+                selector: 'div[class="product__description"] > p',
+                index: productDescriptionIndex,
+                expectedText: productDescriptionText,
+            });
+        }
+        if (buttonAddToWishListIndex !== undefined) {
+            // Validate that the 'Add to wish list' button is visible.
+            cy.validateElementAttribute({
+                selector: 'button[aria-label="Add to wishlist"]',
+                index: buttonAddToWishListIndex,
+                attribute: 'title',
+                expectedValue: 'Add to wishlist'
+            });
+        }
+        if (clearanceLabelIndex !== undefined) {
+            // Validate that the 'Clearance' label is visible.
+            cy.validateElementText({
+                selector: 'div[class="product__top"] > div[class="product-sticker"]',
+                index: clearanceLabelIndex,
+                expectedText: 'Clearance'
+            });
+
+        }
+        if (seeDetailsButtonIndex !== undefined) {
+            // Validate that the 'See details' button is visible.
+            cy.validateElementText({
+                selector: 'div[class="product__long-description"] > a',
+                index: seeDetailsButtonIndex,
+                expectedText: 'See details'
+            });
+            // Click the 'See details' button and validate navigation to the product details page.
+            cy.clickSmart({ selector: 'div[class="product__long-description"] > a', index: seeDetailsButtonIndex });
+            cy.url().should('include', productUrlRouting as string);
+            cy.waitForPageToLoad();
+            // Click the 'Clearance' menu item to navigate to the contact page.
+            cy.clickSmart({ selector: 'a[href="/clearance"]', index: 0 });
+            cy.waitForPageToLoad();
+            cy.url().should('include', '/clearance');
+        }
     }
 }
