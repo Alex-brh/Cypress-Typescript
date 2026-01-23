@@ -17,4 +17,9 @@ describe('Test "Clearance" page by validating', () => {
         clearancePage.h2HeaderValidation(data);
     });
 
+    it('paragraph texts', () => {
+        // Validate paragraph texts.
+        clearancePage.paragraphTextValidation(data);
+    });
+
 });
