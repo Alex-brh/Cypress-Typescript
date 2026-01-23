@@ -6,6 +6,19 @@ interface ClearancePageData {
 export class ClearancePage {
 
     /**
+     * Navigate to the "Clearance" page.
+     * @returns void
+     * @example cy.navigateToClearancePage()
+     */
+    navigateToClearancePage(): void {
+        cy.launchTheStore();
+        // Clik the "Clearance" menu item.
+        cy.clickSmart({ selector: 'a[href="/clearance"]', index: 0 });
+        cy.url().should('include', '/clearance', { timeout: 10000 });
+        cy.waitForPageToLoad();
+    }
+
+    /**
      * Validate h2 headers on the "Clearance" page.
      * @param data 
      * @returns void

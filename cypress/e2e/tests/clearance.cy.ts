@@ -5,11 +5,8 @@ const clearancePage = new ClearancePage();
 describe('Test "Clearance" page by validating', () => {
 
     beforeEach(() => {
-        cy.launchTheStore();
-        // Clik the "Clearance" menu item.
-        cy.clickSmart({ selector: 'a[href="/clearance"]', index: 0 });
-        cy.url().should('include', '/clearance', { timeout: 10000 });
-        cy.waitForPageToLoad();
+        // Navigate to the "Clearance" page before each test.
+        clearancePage.navigateToClearancePage();
     });
 
     it('h2 headers', () => {
