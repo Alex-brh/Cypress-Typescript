@@ -10,7 +10,7 @@ describe('Test "Clearance" page by validating', () => {
         clearancePage.navigateToClearancePage();
     });
 
-    it('h2 headers', () => {
+    it('h1 and h2 headers', () => {
         // Validate h2 headers.
         clearancePage.h2HeaderValidation(data);
     });

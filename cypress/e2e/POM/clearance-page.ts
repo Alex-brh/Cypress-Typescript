@@ -37,12 +37,13 @@ export class ClearancePage {
     }
 
     /**
-     * Validate h2 headers on the "Clearance" page.
+     * Validate h1 and h2 headers on the "Clearance" page.
      * @param data 
      * @returns void
      * @example cy.h2HeaderValidation(data)
      */
     h2HeaderValidation(data: ClearancePageData): void {
+        cy.validateElementText({ selector: 'h1[class^="jw-heading"]', expectedText: "Beyond the ordinary" });
         cy.wrap(data.h2Headers).each((headerText, index) => {
             cy.validateElementText({
                 selector: 'h2[class^="jw-heading"]',
