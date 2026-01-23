@@ -6,6 +6,18 @@ interface data {
 export class CustomerTestimonialsPage {
 
     /**
+     * Navigate to the "Customer Testimonials" page.
+     * @returns void
+     * @example cy.navigateToCustomerTestimonialsPage()
+     */
+    navigateToCustomerTestimonialsPage(): void {
+        cy.launchTheStore();
+        cy.clickSmart({ selector: 'a[href="/customer-testimonials"]', index: 0 });
+        cy.url().should('include', '/customer-testimonials', { timeout: 10000 });
+        cy.waitForPageToLoad();
+    }
+
+    /**
      * Validate the error messages.
      * @param options
      * @param options.expectedText

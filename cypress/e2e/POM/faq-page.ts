@@ -6,6 +6,18 @@ interface FaqData {
 
 export class FaqPage {
 
+    /**
+     * Navigate to the "FAQ" page.
+     * @returns void
+     * @example cy.navigateToFaqPage()
+     */
+    navigateToFaqPage(): void {
+        cy.launchTheStore();
+        cy.clickSmart({ selector: 'a[href="/faq"]', index: 0 });
+        cy.url().should('include', '/faq', { timeout: 10000 });
+        cy.waitForPageToLoad();
+    }
+
     validateTopQuestionAndAnswer(options: FaqData): void {
         // Validate the top question and/or answer based on provided options.
         if (options.faqsData.locator &&

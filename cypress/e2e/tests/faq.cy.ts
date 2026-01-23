@@ -6,10 +6,7 @@ const faqPage = new FaqPage();
 describe('Test "FAQ" page by validating', () => {
 
     beforeEach(() => {
-        cy.launchTheStore();
-        cy.clickSmart({ selector: 'a[href="/faq"]', index: 0 });
-        cy.url().should('include', '/faq', { timeout: 10000 });
-        cy.waitForPageToLoad();
+        faqPage.navigateToFaqPage();
     });
 
     it('URL and page top question and answer', () => {

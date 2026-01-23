@@ -5,10 +5,8 @@ const storePage = new StorePage();
 describe('Testing the "Store" page by validating the', () => {
 
     beforeEach(() => {
-        cy.launchTheStore();
-        cy.clickSmart({ selector: 'a[href="/store"]', index: 0 });
-        cy.url().should('include', '/store', { timeout: 30000 });
-        cy.waitForPageToLoad();
+        // Navigate to the Store page before each test.
+        storePage.navigateToStorePage();
     });
 
     it('top disclaimer and the "Type here" button', () => {
