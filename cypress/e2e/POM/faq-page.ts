@@ -18,6 +18,12 @@ export class FaqPage {
         cy.waitForPageToLoad();
     }
 
+    /**
+     * Validate the top question and/or answer based on provided options.
+     * @param options - The options object containing locator, index, question, and/or answer.
+     * @returns void
+     * @example cy.validateTopQuestionAndAnswer({ faqsData: { locator: 'h2', index: 0, question: 'Question text', answer: 'Answer text' } })
+     */
     validateTopQuestionAndAnswer(options: FaqData): void {
         // Validate the top question and/or answer based on provided options.
         if (options.faqsData.locator &&
