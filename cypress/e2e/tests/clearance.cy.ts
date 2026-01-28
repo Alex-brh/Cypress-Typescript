@@ -1,4 +1,3 @@
-import { any } from 'cypress/types/bluebird';
 import * as data from '../../fixtures/clearance-data.json'
 import { ClearancePage } from '../POM/clearance-page';
 const clearancePage = new ClearancePage();

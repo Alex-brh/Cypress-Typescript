@@ -20,6 +20,12 @@ export class ContactPage {
         cy.waitForPageToLoad();
     }
 
+    /**
+     * Validate the Contact page appearance based on provided data.
+     * @param data - The data object containing field labels.
+     * @returns void
+     * @example cy.validateContactPageAppearance({ fieldLabels: [{ label: 'Name' }, { label: 'Email' }, { label: 'Message' }] })
+     */
     validateContactPageAppearance(data: ContactPageData): void {
         // Validate the top disclaimer visibility.
         cy.validateElementText({
@@ -74,6 +80,13 @@ export class ContactPage {
             attribute: 'id'
         });
     }
+
+    /**
+     * Validate the empty form submission behavior.
+     * @param validation - The validation object containing the expected error message.
+     * @returns void
+     * @example cy.validateEmptyFormSubmission({ error: 'Please fill out this field.' })
+     */
     validateEmptyFormSubmission(validation: FormOptions): void {
         cy.waitForElementVisible('button[type="submit"]', 0);
         cy.clickSmart({ selector: 'button[type="submit"]', index: 0 });

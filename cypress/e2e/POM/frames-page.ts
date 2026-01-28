@@ -13,6 +13,12 @@ export class FramesPage {
         cy.waitForPageToLoad();
     }
 
+    /**
+     * Validate links within iframes that utilize shadow DOM.
+     * @param frameData - An array of objects containing brand names and their corresponding hrefs.
+     * @returns void
+     * @example cy.validateLinksWithShadowDom([{ brand: 'amazon', href: 'https://www.amazon.com' }]);
+     */
     validateLinksWithShadowDom(frameData: { brand: string; href: string }[]): void {
         cy.wrap(frameData).each((frame: { brand: string; href: string }) => {
             // First count the number of iframe elements on the page.

@@ -49,6 +49,11 @@ export class StorePage {
         cy.waitForPageToLoad();
     }
 
+    /**
+     * Navigates to the Store page.
+     * @returns void
+     * @example cy.navigateToStorePage()
+     */
     validateTopDisclaimerAndTypeHereButton(options: DisclaimerText): void {
         // Validate the top disclaimer text.
         cy.validateElementText({
@@ -66,6 +71,12 @@ export class StorePage {
         });
     }
 
+    /**
+     * Validate the Store page products based on provided data.
+     * @param options - The options object containing the data to validate.
+     * @returns void
+     * @example cy.validateStorePageProducts({ data: { products: [...] } })
+     * */
     validateStorePageProducts(options: ValidateOptions): void {
         let indexForSeeDetailsButtons = 0;
         options.data.products.forEach((product, i) => {
@@ -120,6 +131,12 @@ export class StorePage {
         });
     }
 
+    /**
+     * Validate the Store page product details based on provided data.
+     * @param options - The options object containing the data to validate.
+     * @returns void
+     * @example cy.validateProductDetails({ data: { productDetails: [...] } })
+     * */
     validateProductDetails(options: ValidateProductDetailsOptions): void {
         cy.wrap(options.data.productDetails).each((productDetails: ProductDetails) => {
             // Open the product details page.
@@ -165,7 +182,7 @@ export class StorePage {
                     });
                 });
             }
-            // If there are multiple products to validate, navigate back to the Store page after each validation.
+            // If there are multiple products to validate, navigate back to the Store page after each validation to select the next product.
             cy.log(`Number of products to validate: ${options.data.productDetails.length}`);
             if (options.data.productDetails.length > 1) {
                 cy.clickSmart({ selector: 'a[href="/store"]' });
